@@ -1,5 +1,6 @@
 # crawling_textformat_sql_exercise
 Crawling,text format and sql exercise
+The answer for the database exercise and explanation it is in this file. See below.
 
 #Crawling
 I did it in NodeJs. 
@@ -40,7 +41,7 @@ In the database exercise in order to improve performace we can use b-tree index.
 
 To create index: 
 Example: CREATE INDEX idx_entidade_cpf on db_entidade (cpf);
-Insert into db_entidade values ('Pessoa','3','2005-04-02','1','2005-04-02','1','4029427803');
+
 
 That even in a small test where we have like 10 elements in db_entidade we can get an better execution time.
 
