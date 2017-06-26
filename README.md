@@ -1,5 +1,5 @@
-# crawling_textformat
-Crawling and text format exercise
+# crawling_textformat_sql_exercise
+Crawling,text format and sql exercise
 
 #Crawling
 I did it in NodeJs. 
@@ -26,4 +26,33 @@ Attention: you should use ';' as the example above.
 
 
 # Text Format
+In this folder I did an exercise where I format a text to have more or less 40 characters per line. For that I used Python.
+
+To run you should type: python text_format.py
+
+- Provide the file you want to format. For example: text_test1.txt
+
+- And the type of format that you want to use (0 - for left or 1  - for justified). 
+
+
+# Database Exercise
+In the database exercise in order to improve performace we can use b-tree index. Index helps to better sctruturize the data and it helps to optmize queries.
+
+To create index: 
+Example: CREATE INDEX idx_entidade_cpf on db_entidade (cpf);
+Insert into db_entidade values ('Pessoa','3','2005-04-02','1','2005-04-02','1','4029427803');
+
+That even in a small test where we have like 10 elements in db_entidade we can get an better execution time.
+
+We can also use cover and multiple index. 
+
+But using a lot of index can reduce the performace of Insert,Update,Delete entry of a database.
+
+If a table is changed quite a lot during a certain time it is recommended to Reindex the table. Reindex is a safe operation and can run even when you index running.
+
+You can Reindex in a index or in a entire table.
+ 
+
+
+
 

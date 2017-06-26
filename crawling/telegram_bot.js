@@ -36,7 +36,7 @@ bot.onText(/\/NadaPraFazer (.+)/, (msg, match) => {
   const resp = match[1]; 
   const subReddits = match[1].split(";");
   
-  Reddit(subReddits,function(error,subReddits){
+  Reddit.getSubReddits(subReddits,function(error,subReddits){
       if(error){
         sendFailedMessage(chatId,error);
       }

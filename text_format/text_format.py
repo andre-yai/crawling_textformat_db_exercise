@@ -2,62 +2,67 @@ import fileinput
 
 # TODO: Justify text
 # TODO: Better Naming variables and better dividing into functions
-# TODO: Scrapy  exercise and database exercise
 
-def justified_text(text_array,line_letters_count):
-	# TODO:
-	missing_space = 40 - line_letters_count;
-	print(missing_space,len(text_array));
-	if(missing_space == len(text_array)-1):
-		text_result = " ".join(text_array);
+width  = 40;
+
+def justified_text(line_words,line_size):
+	
+	number_words_line = len(line_words) - 1 
+	missing_space = 40 - line_size;
+
+	if(missing_space == number_words_line):
+		text_result = " ".join(line_words);
 	else:
 		text_result = "";
-		for word in text_array:
+		index = 0;
+		for word in line_words:
+			if(number_words_line > index):
+				rest = missing_space % (number_words_line - index);
+				maximum_space_btw = int(round(missing_space / (number_words_line - index)));
+				space_btw_text = maximum_space_btw;
 
-			maximum_space_btw = missing_space / len(text_array)
-			print(int(round(maximum_space_btw)));
-			if(maximum_space_btw > 1):
-				text_result += word + (" "*int(round(maximum_space_btw)))
+				if(rest >= 1):
+					space_btw_text += 1;
+					missing_space -= 1;
+		
+				text_result += word + (" "*space_btw_text);
+				missing_space -= maximum_space_btw;
+				index += 1;
 			else:
-				text_result += word + (" ")
-			missing_space -= maximum_space_btw
-			print(text_result)
+				text_result += word
+	
 	return text_result;
 
-def reached_40characters(is_justified,line_counts,word_length,new_line):
-	if not is_justified:
-		return line_counts + word_length + len(new_line) > 40
+def format_line(is_justified,line_words,line_size):
+
+	if is_justified == 1:
+		line = justified_text(line_words,line_size);
 	else:
-		return line_counts + word_length + len(new_line) > 40;
+		line = " ".join(line_words);
+	return line;
 
-def formatLine40(line,is_justified):
-	# This function will return
+def limit_line_by_width(line,is_justified):
 
-	line_words = line.split()
-	line_counts = 0
-	lines40_array = []
-	new_line = []
+	paragraph_words = line.split()
+	line_size = 0
+	paragraph_lines = []
+	line_words = []
 
-	for word in line_words:
-		word_length = len(word)
+	for word in paragraph_words:
+		word_size = len(word)
 		
-		if(reached_40characters(is_justified,line_counts,word_length,new_line)):
-			if is_justified:
-				line = justified_text(new_line,line_counts);
-			else:
-				line = " ".join(new_line);
+		if(line_size + word_size + len(line_words) > width):
+			line = format_line(is_justified,line_words,line_size);
+			paragraph_lines.append(line);
+			line_words = []
+			line_size = 0;
 
-			lines40_array.append(line);
-			new_line = []
-			line_counts = 0;
+		line_size += word_size
+		line_words.append(word)
+	line = format_line(is_justified,line_words,line_size)
+	paragraph_lines.append(line);
 
-		line_counts += word_length
-		new_line.append(word)
-	
-	line = " ".join(new_line);
-	lines40_array.append(line);
-
-	return lines40_array;
+	return paragraph_lines;
 
 def read_file(file_name):
 	
@@ -68,13 +73,17 @@ def read_file(file_name):
 	return text;
 
 def main():
-
-	text_imported = read_file("text_example1.txt");
-	is_justified = 1;
+	# file_name = input("Insert name of the file containing the text to be formated:"); 
+	file_name = "text_example1.txt";
+	print(file_name);
+	text_imported = read_file(file_name);
+	is_justified = int(input("Do you want to be justified? (1-Yes, 0-No) "));
+	print(is_justified);
 	for line in text_imported:
-		lines_40 = formatLine40(line,is_justified);
+		lines_40 = limit_line_by_width(line,is_justified);
 		print("\n".join(lines_40));
 
 	return 0;
 
-main();
+if __name__ =='__main__':
+	main();

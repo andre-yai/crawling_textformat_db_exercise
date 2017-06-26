@@ -87,7 +87,7 @@ function printTopThreads(topThreads){
 }
 
 getTopThreadsFromSubReddits(listofSubreddit,function(error,topThreads){
-	console.log("Error:",error,"Top:",topThreads);
+
 	if(error){
 		console.log("Error:");
 	}
@@ -96,4 +96,5 @@ getTopThreadsFromSubReddits(listofSubreddit,function(error,topThreads){
 	}
 })
 
-module.exports =  getTopThreadsFromSubReddits;
+module.exports =  {getSubReddits: getTopThreadsFromSubReddits, parsePage: parseRedditPage};
+
